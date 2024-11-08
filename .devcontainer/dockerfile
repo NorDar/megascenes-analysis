@@ -1,0 +1,48 @@
+FROM mcr.microsoft.com/devcontainers/python:1-3.11-bookworm
+
+RUN apt-get update && apt-get install -y \
+    wget \
+    vim \
+    software-properties-common \
+    pciutils \
+    git \
+    cmake \
+    ninja-build \
+    build-essential \
+    libboost-program-options-dev \
+    libboost-filesystem-dev \
+    libboost-graph-dev \
+    libboost-system-dev \
+    libeigen3-dev \
+    libflann-dev \
+    libfreeimage-dev \
+    libmetis-dev \
+    libgoogle-glog-dev \
+    libgtest-dev \
+    libgmock-dev \
+    libsqlite3-dev \
+    libglew-dev \
+    qtbase5-dev \
+    libqt5opengl5-dev \
+    libcgal-dev \
+    libceres-dev
+    
+RUN echo "alias ll='ls -alh'" >> /etc/bash.bashrc
+
+RUN python -m pip install ipykernel
+
+RUN wget https://github.com/peak/s5cmd/releases/download/v2.2.2/s5cmd_2.2.2_Linux-64bit.tar.gz && \
+    tar -xf s5cmd_2.2.2_Linux-64bit.tar.gz && \
+    mv s5cmd /usr/local/bin && \
+    rm s5cmd_2.2.2_Linux-64bit.tar.gz
+
+RUN sudo add-apt-repository contrib
+RUN sudo apt-key del 7fa2af80
+
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/cuda-keyring_1.1-1_all.deb && \
+    sudo dpkg -i cuda-keyring_1.1-1_all.deb && \
+    sudo apt-get update && \
+    sudo apt-get install -y cuda-toolkit
+
+RUN echo "export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}" >> /etc/bash.bashrc
+RUN echo "export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
