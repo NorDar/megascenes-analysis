@@ -6,3 +6,5 @@ pycolmap
 matplotlib
 plotly
 nbformat
+scikit-learn
+scipy

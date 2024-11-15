@@ -18,9 +18,10 @@ def get_coordinates_from_image(img:Image) -> np.array:
     return coordinates
 
 def fix_rotaion_in_space(array):
-    x = -array[:,2]
-    y = array[:,0]
-    z = -array[:,1]
+    x = -array[2]
+    y = array[0]
+    z = -array[1]
+    
     return np.concatenate([[x],[y],[z]], axis=0).T
 
 
@@ -37,8 +38,12 @@ def main(location_id="311/918", scene_id="0"):
     image_coordinates = []
     image_index = []
     for index, image in all_bin_images.items():
-        image_coordinates.append(get_coordinates_from_image(image))
+        rotated_image = fix_rotaion_in_space(get_coordinates_from_image(image))
+        image_coordinates.append(rotated_image)
         image_index.append(index)
+
+    
+    logging.info(f"Rotated x, y, z according to sample transformation 311/918")
 
     image_dict = {idx: coords.tolist() for idx, coords in zip(image_index, image_coordinates)}
     image_coordinates = np.vstack(image_coordinates)
