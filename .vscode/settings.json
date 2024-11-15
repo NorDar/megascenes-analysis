@@ -1,0 +1,16 @@
+{
+    "search.exclude": {
+		"**/images/**": true,
+		"**/logs/**": true,
+		"**/metadata/**": true,
+		"**/reconstruct/**": true,
+		"./colmap/**": true
+	},
+	"files.watcherExclude": {
+		"**/images/**": true,
+		"**/logs/**": true,
+		"**/metadata/**": true,
+		"**/reconstruct/**": true,
+		"./colmap/**": true
+	}
+}

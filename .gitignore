@@ -2,7 +2,9 @@ images
 logs
 metadata
 reconstruct
+databases/
+reconstruct_aux/
+colmap
 
 *.pdf
-
 

@@ -3,3 +3,6 @@ polars
 pandas
 pyarrow
 pycolmap
+matplotlib
+plotly
+nbformat
