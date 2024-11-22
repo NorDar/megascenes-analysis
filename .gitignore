@@ -5,6 +5,7 @@ reconstruct
 databases/
 reconstruct_aux/
 camera-location
+html/exports
 image-paths
 colmap
 __pycache__

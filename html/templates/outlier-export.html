@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+    <style type="text/css">
+
+    </style>
+    <title>Visualization of outliers for scene {{ scene_id }}, recontstruction {{ recon_id }}</title>
+</head>
+<body>
+    <h1>For the scene {{ scene_id }}, {{ scene_name }} and recontstruction {{ recon_id }}</h1>
+
+    {% for cluster in clusters %}
+        <h2>Cluster {{ loop.index0 }}</h2>
+        {% for camera in cluster %}
+        <h3>Camera ID: {{ camera[0] }}</h3>
+        <img src="../../{{ camera[1]}}", width="300">
+        {% endfor %}
+    {% endfor %}
+
+</body>
+</html>
