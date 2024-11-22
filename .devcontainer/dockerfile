@@ -46,3 +46,5 @@ RUN wget https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_6
 
 RUN echo "export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}" >> /etc/bash.bashrc
 RUN echo "export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
+RUN apt-get install texlive-xetex texlive-fonts-recommended texlive-plain-generic pandoc

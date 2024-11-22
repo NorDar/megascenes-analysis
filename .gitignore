@@ -4,7 +4,10 @@ metadata
 reconstruct
 databases/
 reconstruct_aux/
+camera-location
+image-paths
 colmap
+__pycache__
 
 *.pdf
 

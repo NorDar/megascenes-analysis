@@ -8,3 +8,6 @@ plotly
 nbformat
 scikit-learn
 scipy
+ipywidgets
+pillow
+nbconvert
