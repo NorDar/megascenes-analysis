@@ -7,50 +7,24 @@ import matplotlib.cm as cm
 from sklearn.metrics import silhouette_samples, silhouette_score
 import logging
 
-def plot_2d(axis, data, model, labels, n_clusters, cutoff_axis=None):
+def plot_2d(axis, data, centers, labels, n_clusters, cutoff_axis=None):
     if not cutoff_axis:
         cutoff_axis = 999
     else:
         logging.info(f"Attention! min/max cutoff is: +-{cutoff_axis}!")
 
+    #centers = model.cluster_centers_
     ax2 = axis
-    # 2nd Plot showing the actual clusters formed
-    colors = cm.nipy_spectral(labels.astype(float) / n_clusters)
-    ax2.scatter(
-        data[:, 0], data[:, 1], marker=".", s=30, lw=0, alpha=0.7, c=colors, edgecolor="k"
-    )
 
     x_min = max(min(data[:, 0]), -cutoff_axis)
     x_max = min(max(data[:, 0]), cutoff_axis)
     y_min = max(min(data[:, 1]), -cutoff_axis)
     y_max = min(max(data[:, 1]), cutoff_axis)
 
-    # Labeling the clusters
-    centers = model.cluster_centers_
-    # Draw white circles at cluster centers
-    ax2.scatter(
-        centers[:, 0],
-        centers[:, 1],
-        marker="o",
-        c="white",
-        alpha=1,
-        s=200,
-        edgecolor="k",
-    )
-
-    for i, c in enumerate(centers):
-        ax2.scatter(c[0], c[1], marker="$%d$" % i, alpha=1, s=50, edgecolor="k")
 
     ax2.set_title("The visualization of the clustered data.")
     ax2.set_xlabel("Feature space for the 1st feature")
     ax2.set_ylabel("Feature space for the 2nd feature")
-
-    plt.suptitle(
-        "Silhouette analysis for KMeans clustering on sample data with n_clusters = %d"
-        % n_clusters,
-        fontsize=14,
-        fontweight="bold",
-    )
 
     # 2nd Plot showing the actual clusters formed
     colors = cm.nipy_spectral(labels.astype(float) / n_clusters)
@@ -59,7 +33,6 @@ def plot_2d(axis, data, model, labels, n_clusters, cutoff_axis=None):
     )
 
     # Labeling the clusters
-    centers = model.cluster_centers_
     # Draw white circles at cluster centers
     ax2.scatter(
         centers[:, 0],
@@ -71,12 +44,10 @@ def plot_2d(axis, data, model, labels, n_clusters, cutoff_axis=None):
         edgecolor="k",
     )
 
+    # Number on cluster center
     for i, c in enumerate(centers):
         ax2.scatter(c[0], c[1], marker="$%d$" % i, alpha=1, s=50, edgecolor="k")
 
-    ax2.set_title("The visualization of the clustered data.")
-    ax2.set_xlabel("Feature space for the 1st feature")
-    ax2.set_ylabel("Feature space for the 2nd feature")
     
     ax2.axis('square')
     ax2.set_xlim([x_min, x_max])
@@ -144,13 +115,5 @@ def plot_silhouette(axis, data, labels, n_clusters):
 
     ax1.set_yticks([])  # Clear the yaxis labels / ticks
     ax1.set_xticks([-0.1, 0, 0.2, 0.4, 0.6, 0.8, 1])
-
-    
-    plt.suptitle(
-        "Silhouette analysis for KMeans clustering on sample data with n_clusters = %d"
-        % n_clusters,
-        fontsize=14,
-        fontweight="bold",
-    )
 
     
